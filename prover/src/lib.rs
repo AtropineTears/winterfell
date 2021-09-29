@@ -80,7 +80,7 @@ use composer::DeepCompositionPoly;
 
 mod trace;
 use trace::TracePolyTable;
-pub use trace::{ExecutionTrace, ExecutionTraceFragment, TraceBuilder};
+pub use trace::{ExecutionTrace, TraceBuilder};
 
 mod channel;
 use channel::ProverChannel;
