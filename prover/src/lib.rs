@@ -46,7 +46,9 @@ pub use air::{
     EvaluationFrame, FieldExtension, HashFunction, ProofOptions, TraceInfo,
     TransitionConstraintDegree, TransitionConstraintGroup,
 };
-pub use utils::{ByteReader, ByteWriter, Deserializable, DeserializationError, Serializable};
+pub use utils::{
+    ByteReader, ByteWriter, Deserializable, DeserializationError, Serializable, SliceReader,
+};
 
 use fri::FriProver;
 
@@ -77,7 +79,7 @@ use composer::DeepCompositionPoly;
 
 mod trace;
 use trace::TracePolyTable;
-pub use trace::{ExecutionTrace, TraceBuilder};
+pub use trace::{TraceBuilder, TraceTable};
 
 mod channel;
 use channel::ProverChannel;
@@ -178,7 +180,7 @@ where
     // assertions and state transitions. we do this in debug mode only because this is a very
     // expensive operation.
     #[cfg(debug_assertions)]
-    trace.validate(&air);
+    trace::validation::validate_trace(&trace, &air);
 
     // create a channel which is used to simulate interaction between the prover and the verifier;
     // the channel will be used to commit to values and to draw randomness that should come from
